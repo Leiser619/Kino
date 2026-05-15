@@ -55,12 +55,14 @@ export const MovieSlider = ({
 
 
 
-  const currentQuery =
-    type === "now-playing"
-      ? nowPlayingQuery
-      : type === "trending"
-      ? trendingQuery
-      : categoryQuery;
+const currentQuery =
+  type === "now-playing"
+    ? nowPlayingQuery
+    : type === "trending"
+    ? trendingQuery
+    : type === "family"
+    ? familyQuery
+    : categoryQuery;
 
   const {
     data: movies,
@@ -200,7 +202,7 @@ export const MovieSlider = ({
                 </p>
 
                 <p className="text-sm text-yellow-400">
-                  ⭐ {movie.imdbRating}
+                   {movie.imdbRating}
                 </p>
 
               </div>
