@@ -1,36 +1,23 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.movie.CreateScreeningRequest;
+import com.example.demo.model.cinema.Screening;
 import com.example.demo.service.ScreeningService;
-import com.example.demo.dto.movie.ScreeningRes;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/admin_panel")
+@RequestMapping("api/screenings")
 @RequiredArgsConstructor
 public class ScreeningController {
-    final private ScreeningService screeningService;
+
+    private final ScreeningService screeningService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addScreening(@Valid @RequestBody ScreeningRes req) {
-        screeningService.addScreening(req);
+    public Screening create(@RequestBody CreateScreeningRequest req) {
+        return screeningService.create(req);
     }
-
-    @GetMapping
-    public List<ScreeningRes> getScreenings( ) {
-        return screeningService.getScreenings();
-    }
-
-    @GetMapping("/btw")
-    public List<ScreeningRes> getScreeningsBetween(@RequestParam LocalDateTime from,
-                                                   @RequestParam LocalDateTime to){
-        return screeningService.getScreeningsBetween(from,to);
-    }
-
 }

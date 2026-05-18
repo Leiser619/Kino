@@ -20,4 +20,7 @@ public class Hall {
 
     @Column(nullable = false)
     private int columns;
+
+    @Column(nullable = false)
+    private String type;
 }

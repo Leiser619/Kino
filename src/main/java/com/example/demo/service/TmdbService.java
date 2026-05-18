@@ -2,8 +2,9 @@ package com.example.demo.service;
 
 import com.example.demo.config.TmdbProperties;
 import com.example.demo.dto.movie.MovieDto;
+import com.example.demo.dto.movie.TmdbFindResponse;
 import com.example.demo.dto.movie.TmdbMovieDto;
-import com.example.demo.dto.movie.TmdbNowPlayingResponse;
+import com.example.demo.dto.movie.TmdbListResponse;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class TmdbService {
 
     public List<MovieDto> getNowPlayed() {
 
-        TmdbNowPlayingResponse response = restClient.get()
+        TmdbListResponse response = restClient.get()
 
                 .uri(uriBuilder -> uriBuilder
                         .path("/movie/now_playing")
@@ -37,7 +38,7 @@ public class TmdbService {
 
                 .retrieve()
 
-                .body(TmdbNowPlayingResponse.class);
+                .body(TmdbListResponse.class);
 
         assert response != null;
 
@@ -54,7 +55,7 @@ public class TmdbService {
 
     public List<MovieDto> getTrending() {
 
-        TmdbNowPlayingResponse response = restClient.get()
+        TmdbListResponse response = restClient.get()
 
                 .uri(uriBuilder -> uriBuilder
                         .path("/trending/movie/day")
@@ -70,7 +71,7 @@ public class TmdbService {
 
                 .retrieve()
 
-                .body(TmdbNowPlayingResponse.class);
+                .body(TmdbListResponse.class);
 
         assert response != null;
 
@@ -86,7 +87,7 @@ public class TmdbService {
 //TODO TA METODE ZMIENIC NA POBIERANIE Z PARAMETREM
     public List<MovieDto> getFamilyMovies() {
 
-        TmdbNowPlayingResponse response = restClient.get()
+        TmdbListResponse response = restClient.get()
 
                 .uri(uriBuilder -> uriBuilder
 
@@ -110,7 +111,7 @@ public class TmdbService {
 
                 .retrieve()
 
-                .body(TmdbNowPlayingResponse.class);
+                .body(TmdbListResponse.class);
 
         assert response != null;
 
@@ -123,11 +124,57 @@ public class TmdbService {
                 .toList();
     }
 
+    public MovieDto getMovieByImdbId(
+            String imdbId
+    ) {
 
+        TmdbFindResponse response =
+                restClient.get()
 
+                        .uri(uriBuilder -> uriBuilder
 
+                                .path("/find/{external_id}")
 
+                                .queryParam(
+                                        "external_source",
+                                        "imdb_id"
+                                )
 
+                                .queryParam(
+                                        "language",
+                                        "en-US"
+                                )
+
+                                .build(imdbId)
+                        )
+
+                        .header(
+                                "Authorization",
+                                "Bearer " + tmdbProperties.getApiKey()
+                        )
+
+                        .retrieve()
+
+                        .body(TmdbFindResponse.class);
+
+        assert response != null;
+
+        if (
+                response.getMovieResults()
+                        .isEmpty()
+        ) {
+
+            throw new RuntimeException(
+                    "Movie not found"
+            );
+        }
+
+        return mapToMovieDto(
+                response
+                        .getMovieResults().get(0)
+
+        );
+    }
 
 
 

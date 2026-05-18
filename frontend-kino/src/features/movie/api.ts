@@ -1,4 +1,5 @@
-//src/features/movie/api.ts
+// src/features/movie/api.ts
+
 import { z } from "zod";
 
 import { api } from "../../shared/api/axios";
@@ -32,9 +33,6 @@ export const getNowPlayingMovies = async (): Promise<MovieSchemaType[]> => {
   );
 };
 
-
-
-
 export const getTrendingMovies = async (): Promise<MovieSchemaType[]> => {
 
   const res = await api.get(
@@ -46,8 +44,6 @@ export const getTrendingMovies = async (): Promise<MovieSchemaType[]> => {
   );
 };
 
-
-
 export const getFamilyMovies = async (): Promise<MovieSchemaType[]> => {
 
   const res = await api.get(
@@ -55,6 +51,20 @@ export const getFamilyMovies = async (): Promise<MovieSchemaType[]> => {
   );
 
   return z.array(MovieSchema).parse(
+    res.data
+  );
+};
+
+
+export const getMovieBySearchKey = async (
+  searchKey: string
+): Promise<MovieSchemaType> => {
+
+  const res = await api.get(
+    `/movies/${searchKey}`
+  );
+
+  return MovieSchema.parse(
     res.data
   );
 };

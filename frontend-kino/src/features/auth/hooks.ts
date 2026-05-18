@@ -9,7 +9,7 @@ export const useRegister = () => {
   return useMutation({
     mutationFn: register,
     onSuccess: () => {
-      window.location.href = "/";
+      window.location.href = "/login";
     },
   });
 };

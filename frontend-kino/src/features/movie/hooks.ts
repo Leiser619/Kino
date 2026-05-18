@@ -6,6 +6,7 @@ import {
   getNowPlayingMovies,
   getTrendingMovies,
   getFamilyMovies,
+  getMovieBySearchKey
 } from "./api";
 
 export const useGetMovies = (
@@ -54,3 +55,18 @@ export const useGetFamilyMovies = () => {
     staleTime: 1000 * 60 * 5,
   });
 };
+
+
+export function useMovieBySearchKey(
+  searchKey: string
+) {
+
+  return useQuery({
+    queryKey: ["movie", searchKey],
+
+    queryFn: () =>
+      getMovieBySearchKey(searchKey),
+
+    enabled: !!searchKey,
+  });
+}

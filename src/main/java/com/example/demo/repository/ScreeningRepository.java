@@ -11,13 +11,5 @@ import java.util.UUID;
 
 public interface ScreeningRepository extends JpaRepository<Screening, Long> {
 
-    List<Screening> findBystartTimeBetween(LocalDateTime sD, LocalDateTime eD);
 
-    boolean existsByStartTimeAndHall_IdAndMovie_Id(LocalDateTime startTime, Long hallId, UUID movieId);
-
-    boolean existsByHall_IdAndStartTimeLessThanAndEndTimeGreaterThan(
-            Long hallId,
-            LocalDateTime endTime,
-            LocalDateTime startTime
-    );
 }

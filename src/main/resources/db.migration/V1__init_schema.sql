@@ -41,18 +41,11 @@ CREATE TABLE hall (
 CREATE TABLE screening (
                            id BIGSERIAL PRIMARY KEY,
 
-                           movie_id UUID NOT NULL,
-
                            hall_id BIGINT NOT NULL,
 
                            start_time TIMESTAMP NOT NULL,
 
                            end_time TIMESTAMP NOT NULL,
-
-                           CONSTRAINT fk_screening_movie
-                               FOREIGN KEY (movie_id)
-                                   REFERENCES movies(id)
-                                   ON DELETE CASCADE,
 
                            CONSTRAINT fk_screening_hall
                                FOREIGN KEY (hall_id)
@@ -113,9 +106,6 @@ CREATE INDEX idx_movies_genre
 
 CREATE INDEX idx_movies_search_key
     ON movies(search_key);
-
-CREATE INDEX idx_screening_movie
-    ON screening(movie_id);
 
 CREATE INDEX idx_screening_hall
     ON screening(hall_id);

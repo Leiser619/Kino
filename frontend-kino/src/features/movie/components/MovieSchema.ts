@@ -1,11 +1,16 @@
+// src/features/movie/components/MovieSchema.ts
+
 import { z } from "zod";
 
 export const MovieSchema = z.object({
+
+  id: z.string(),
+
   imdbId: z.string(),
 
   title: z.string(),
 
-  duration: z.number().int(),
+  duration: z.number(),
 
   posterUrl: z.string(),
 

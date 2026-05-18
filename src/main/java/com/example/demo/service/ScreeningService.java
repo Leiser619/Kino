@@ -1,79 +1,32 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.movie.CreateScreeningRequest;
+import com.example.demo.model.cinema.Hall;
 import com.example.demo.model.cinema.Screening;
-import com.example.demo.dto.movie.ScreeningRes;
-import com.example.demo.repository.MovieRepository;
 import com.example.demo.repository.HallRepository;
 import com.example.demo.repository.ScreeningRepository;
-import jakarta.persistence.EntityExistsException;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ScreeningService {
-    final private ScreeningRepository screeningRepository;
-    final private HallRepository hallRepository;
-    final private MovieRepository movieRepository;
 
-    private static ScreeningRes toResponse(Screening b) {
-        return new ScreeningRes(
-                b.getMovie().getId(),
-                b.getHall().getId(),
-                b.getStartTime()
-        );
-    }
+    private final ScreeningRepository screeningRepository;
+    private final HallRepository hallRepository;
 
-    @Transactional
-    public void addScreening(ScreeningRes screeningRes) {
+    public Screening create(CreateScreeningRequest req) {
+
+        Hall hall = hallRepository.findById(req.getHallId())
+                .orElseThrow();
 
         Screening screening = new Screening();
 
-        LocalDateTime start = screeningRes.startTime();
-        int duration = movieRepository.getReferenceById(screeningRes.movieId()).getDuration();
-        LocalDateTime end = start.plusMinutes(duration);
+        screening.setTmdbMovieId(req.getTmdbMovieId());
+        screening.setHall(hall);
+        screening.setStartTime(req.getStartTime());
+        screening.setPrice(req.getPrice());
 
-        screening.setHall(hallRepository.getReferenceById(screeningRes.hallId()));
-        screening.setMovie(movieRepository.getReferenceById(screeningRes.movieId()));
-        screening.setStartTime(screeningRes.startTime());
-        screening.setEndTime(end);
-
-        boolean exists = screeningRepository.existsByStartTimeAndHall_IdAndMovie_Id(screeningRes.startTime(), screeningRes.hallId(), screeningRes.movieId());
-
-
-        boolean hallIsOccupied = screeningRepository.existsByHall_IdAndStartTimeLessThanAndEndTimeGreaterThan(
-                screeningRes.hallId(),
-                end,
-                start
-        );
-
-        if (exists || hallIsOccupied) {
-            log.error("Film już istnieje lub hala jest zajęta");
-            throw new EntityExistsException(" już zajęty.");
-        }
-        screeningRepository.save(screening);
-    }
-
-    @Transactional
-    public List<ScreeningRes> getScreeningsBetween(LocalDateTime startDate, LocalDateTime endDate) {
-        return screeningRepository.findBystartTimeBetween(startDate, endDate)
-                .stream()
-                .map(ScreeningService::toResponse)
-                .toList();
-    }
-
-    @Transactional
-    public List<ScreeningRes> getScreenings() {
-
-        return screeningRepository.findAll()
-                .stream()
-                .map(ScreeningService::toResponse)
-                .toList();
+        return screeningRepository.save(screening);
     }
 }

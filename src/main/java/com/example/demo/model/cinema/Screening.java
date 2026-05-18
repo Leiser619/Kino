@@ -1,29 +1,27 @@
 package com.example.demo.model.cinema;
 
+import com.example.demo.model.cinema.Hall;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+
 @Entity
-@Setter
 @Getter
+@Setter
 public class Screening {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "movie_id")
-    private Movie movie;
+    private Long tmdbMovieId;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "hall_id")
+    @ManyToOne
     private Hall hall;
 
-    @Column(nullable = false , name = "start_time")
     private LocalDateTime startTime;
 
-    @Column(nullable = false , name = "end_time")
-    private LocalDateTime endTime;
+    private double price;
 }

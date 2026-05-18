@@ -9,7 +9,8 @@ export default function UserMenu() {
 
   const navigate = useNavigate();
 
-  const { data: user } = useMe();
+  // const { data: user } = useMe();
+  const user="Dawid"
 
   return (
 
@@ -112,7 +113,7 @@ export default function UserMenu() {
           {!user && (
             <>
               <button
-                onClick={() => navigate("/")}
+                onClick={() => navigate("/login")}
 
                 className="
                   rounded-xl

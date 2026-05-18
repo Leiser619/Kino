@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class TmdbNowPlayingResponse {
+public class TmdbListResponse {
 
     private List<TmdbMovieDto> results;
 }
