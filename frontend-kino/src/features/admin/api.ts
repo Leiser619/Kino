@@ -2,6 +2,10 @@
 
 import { api } from "../../shared/api/axios";
 
+
+
+
+// MOVIES
 export const getNowPlayingMovies =
   async () => {
 
@@ -13,6 +17,14 @@ export const getNowPlayingMovies =
 };
 
 
+
+
+
+
+
+
+
+// HALLS 
 
 export type CreateHallRequest = {
   name: string;
@@ -42,6 +54,37 @@ export const getHalls = async () => {
   return res.data;
 };
 
+export type UpdateHallRequest = {
+  name: string;
+  rows: number;
+  columns: number;
+  type: string;
+};
+
+export const updateHall = async (
+  hallId: number,
+  data: UpdateHallRequest
+) => {
+
+  const res = await api.put(
+    `/hall/${hallId}`,
+    data
+  );
+
+  return res.data;
+};
+
+
+
+
+
+
+
+
+
+
+
+// SCREENINGS
 
 
 export type CreateScreeningRequest = {
@@ -59,6 +102,16 @@ export const createScreening =
     const res = await api.post(
       "/screenings",
       data
+    );
+
+    return res.data;
+};
+
+export const getScreenings =
+  async () => {
+
+    const res = await api.get(
+      "/screenings"
     );
 
     return res.data;

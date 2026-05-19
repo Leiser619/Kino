@@ -180,6 +180,36 @@ public class TmdbService {
 
 
 
+    public MovieDto getMovieByTmdbId(Long tmdbId) {
+
+        TmdbMovieDto response = restClient.get()
+
+                .uri(uriBuilder -> uriBuilder
+                        .path("/movie/{movie_id}")
+                        .queryParam("language", "en-US")
+                        .build(tmdbId)
+                )
+
+                .header(
+                        "Authorization",
+                        "Bearer " + tmdbProperties.getApiKey()
+                )
+
+                .retrieve()
+
+                .body(TmdbMovieDto.class);
+
+        if (response == null) {
+            throw new RuntimeException("Movie not found");
+        }
+
+        return mapToMovieDto(response);
+    }
+
+
+
+
+
     //maper
     private MovieDto mapToMovieDto(
             TmdbMovieDto movie
@@ -187,7 +217,9 @@ public class TmdbService {
 
         return MovieDto.builder()
 
-                .imdbId(String.valueOf(movie.getId()))
+                .tmdbId(movie.getId())
+
+                .imdbId(movie.getImdbId())
 
                 .title(movie.getTitle())
 
@@ -222,4 +254,6 @@ public class TmdbService {
 
                 .build();
     }
+
+
 }

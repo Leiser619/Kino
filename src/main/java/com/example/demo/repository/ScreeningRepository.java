@@ -11,5 +11,4 @@ import java.util.UUID;
 
 public interface ScreeningRepository extends JpaRepository<Screening, Long> {
 
-
 }

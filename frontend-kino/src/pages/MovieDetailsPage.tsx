@@ -6,80 +6,46 @@ import MovieHero from "../features/movie/components/MovieHero";
 import MovieInfo from "../features/movie/components/MovieInfo";
 import MovieTrailer from "../features/movie/components/MovieTrailer";
 
-import { useMovieBySearchKey } from "../features/movie/hooks";
+import {
+  useGetMovieById,
+} from "../features/movie/hooks";
 
 export default function MovieDetailsPage() {
 
-  const { searchKey } = useParams();
+  const { imdbId } = useParams<{ imdbId: string }>();
 
-  const { data: movie, isLoading } =
-    useMovieBySearchKey(searchKey || "");
+  console.log("ID z URL:", imdbId);
+
+  const {
+    data: movie,
+    isLoading,
+    error,
+  } = useGetMovieById(imdbId || "");
 
   if (isLoading) {
     return (
-      <div
-        className="
-          flex
-          min-h-screen
-          items-center
-          justify-center
-          bg-black
-          text-white
-        "
-      >
+      <div className="flex min-h-screen items-center justify-center bg-black text-white">
         Ładowanie filmu...
       </div>
     );
   }
 
-  if (!movie) {
+  if (error || !movie) {
     return (
-      <div
-        className="
-          flex
-          min-h-screen
-          items-center
-          justify-center
-          bg-black
-          text-white
-        "
-      >
+      <div className="flex min-h-screen items-center justify-center bg-black text-white">
         Nie znaleziono filmu.
       </div>
     );
   }
 
   return (
-
-    <div
-      className="
-        min-h-screen
-        bg-black
-        text-white
-      "
-    >
-
+    <div className="min-h-screen bg-black text-white">
       <MovieHero movie={movie} />
 
-      <main
-        className="
-          mx-auto
-          grid
-          max-w-7xl
-          gap-10
-          px-6
-          py-14
-
-          lg:grid-cols-[1fr_400px]
-        "
-      >
-
+      <main className="mx-auto grid max-w-7xl gap-10 px-6 py-14 lg:grid-cols-[1fr_400px]">
         <MovieInfo movie={movie} />
-
         <MovieTrailer trailerUrl={movie.trailerUrl} />
-
       </main>
-
     </div>
   );
 }

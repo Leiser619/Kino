@@ -1,7 +1,12 @@
-//src/features/movie/components/MovieSlider.tsx
+// src/features/movie/components/MovieSlider.tsx
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+
 import { useRef } from "react";
+
 import { Link } from "react-router-dom";
 
 import {
@@ -31,12 +36,11 @@ export const MovieSlider = ({
   type = "category",
 }: MovieSliderProps) => {
 
-
-  //NASTEPNA KATEGORIA
-  const categoryQuery = useGetMovies(
-    category,
-    type === "category"
-  );
+  const categoryQuery =
+    useGetMovies(
+      category!,
+      type === "category"
+    );
 
   const nowPlayingQuery =
     useGetNowPlayingMovies(
@@ -48,21 +52,19 @@ export const MovieSlider = ({
       type === "trending"
     );
 
-    const familyQuery =
+  const familyQuery =
     useGetFamilyMovies(
       type === "family"
     );
 
-
-
-const currentQuery =
-  type === "now-playing"
-    ? nowPlayingQuery
-    : type === "trending"
-    ? trendingQuery
-    : type === "family"
-    ? familyQuery
-    : categoryQuery;
+  const currentQuery =
+    type === "now-playing"
+      ? nowPlayingQuery
+      : type === "trending"
+      ? trendingQuery
+      : type === "family"
+      ? familyQuery
+      : categoryQuery;
 
   const {
     data: movies,
@@ -70,7 +72,8 @@ const currentQuery =
     error,
   } = currentQuery;
 
-  const sliderRef = useRef<HTMLDivElement>(null);
+  const sliderRef =
+    useRef<HTMLDivElement>(null);
 
   const scrollLeft = () => {
     sliderRef.current?.scrollBy({
@@ -103,12 +106,19 @@ const currentQuery =
   }
 
   return (
+
     <section className="relative w-full py-6">
 
       {/* HEADER */}
       <div className="mb-5 flex items-center justify-between">
 
-        <h2 className="text-3xl font-bold text-white">
+        <h2
+          className="
+            text-3xl
+            font-bold
+            text-white
+          "
+        >
           {title}
         </h2>
 
@@ -121,6 +131,8 @@ const currentQuery =
               bg-zinc-800
               p-2
               text-white
+              transition
+              hover:bg-zinc-700
             "
           >
             <ChevronLeft size={20} />
@@ -133,12 +145,15 @@ const currentQuery =
               bg-zinc-800
               p-2
               text-white
+              transition
+              hover:bg-zinc-700
             "
           >
             <ChevronRight size={20} />
           </button>
 
         </div>
+
       </div>
 
       {/* SLIDER */}
@@ -155,31 +170,51 @@ const currentQuery =
         {movies?.map((movie) => (
 
           <Link
-            key={movie.imdbId}
-            to={`/movie/${movie.searchKey}`}
+            key={movie.tmdbId}
+            to={`/movie/${movie.tmdbId}`}
             className="
               group
               min-w-full
-              sm:min-w-[48%]
-              lg:min-w-[23%]
               overflow-hidden
               rounded-2xl
               bg-zinc-900
               transition
               hover:scale-[1.02]
+
+              sm:min-w-[48%]
+              lg:min-w-[23%]
             "
           >
 
             {/* POSTER */}
-            <img
-              src={movie.posterUrl}
-              alt={movie.title}
-              className="
-                h-[380px]
-                w-full
-                object-cover
-              "
-            />
+            <div className="relative overflow-hidden">
+
+              <img
+                src={movie.posterUrl}
+                alt={movie.title}
+                className="
+                  h-[380px]
+                  w-full
+                  object-cover
+                  transition
+                  duration-300
+
+                  group-hover:scale-110
+                "
+              />
+
+              <div
+                className="
+                  absolute
+                  inset-0
+                  bg-gradient-to-t
+                  from-black/90
+                  via-black/20
+                  to-transparent
+                "
+              />
+
+            </div>
 
             {/* INFO */}
             <div className="p-4">
@@ -195,7 +230,14 @@ const currentQuery =
                 {movie.title}
               </h3>
 
-              <div className="mt-2 flex items-center justify-between">
+              <div
+                className="
+                  mt-2
+                  flex
+                  items-center
+                  justify-between
+                "
+              >
 
                 <p className="text-sm text-zinc-400">
                   {movie.duration} min
@@ -206,10 +248,15 @@ const currentQuery =
                 </p>
 
               </div>
+
             </div>
+
           </Link>
+
         ))}
+
       </div>
+
     </section>
   );
 };

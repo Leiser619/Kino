@@ -6,7 +6,8 @@ import {
   getNowPlayingMovies,
   getTrendingMovies,
   getFamilyMovies,
-  getMovieBySearchKey
+  getMovieBySearchKey,
+  getMovieById,
 } from "./api";
 
 export const useGetMovies = (
@@ -25,37 +26,48 @@ export const useGetMovies = (
   });
 };
 
-export const useGetNowPlayingMovies = () => {
+
+export const useGetNowPlayingMovies = (
+  enabled = true
+) => {
   return useQuery({
     queryKey: ["movies", "now-playing"],
 
     queryFn: getNowPlayingMovies,
 
+    enabled,
+
     staleTime: 1000 * 60 * 5,
   });
 };
 
-
-export const useGetTrendingMovies = () => {
+export const useGetTrendingMovies = (
+  enabled = true
+) => {
   return useQuery({
     queryKey: ["movies", "trending"],
 
     queryFn: getTrendingMovies,
 
+    enabled,
+
     staleTime: 1000 * 60 * 5,
   });
 };
 
-export const useGetFamilyMovies = () => {
+export const useGetFamilyMovies = (
+  enabled = true
+) => {
   return useQuery({
     queryKey: ["movies", "family"],
 
     queryFn: getFamilyMovies,
 
+    enabled,
+
     staleTime: 1000 * 60 * 5,
   });
 };
-
 
 export function useMovieBySearchKey(
   searchKey: string
@@ -68,5 +80,20 @@ export function useMovieBySearchKey(
       getMovieBySearchKey(searchKey),
 
     enabled: !!searchKey,
+  });
+}
+
+
+export function useGetMovieById(
+  id: string
+) {
+
+  return useQuery({
+    queryKey: ["movie", "id", id],
+
+    queryFn: () =>
+      getMovieById(id),
+
+    enabled: !!id,
   });
 }

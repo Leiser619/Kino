@@ -101,13 +101,18 @@ export default function AddScreeningForm() {
           <select
             value={tmdbMovieId}
 
-            onChange={(e) =>
+            onChange={(e) =>{
               setTmdbMovieId(
                 Number(
                   e.target.value
+                
                 )
               )
-            }
+              console.log(
+                "Selected movie ID:",
+                e.target.value
+              )
+            }}
 
             className="
               w-full
@@ -128,14 +133,12 @@ export default function AddScreeningForm() {
             {movies?.map(
               (movie: any) => (
 
-                <option
-                  key={movie.imdbId}
-                  value={
-                    movie.imdbId
-                  }
-                >
-                  {movie.title}
-                </option>
+              <option
+                key={movie.tmdbId}
+                value={movie.tmdbId}
+              >
+                {movie.title}
+              </option>
 
               )
             )}

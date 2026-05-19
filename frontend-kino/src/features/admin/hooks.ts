@@ -10,6 +10,8 @@ import {
   createScreening,
   getHalls,
   getNowPlayingMovies,
+  getScreenings,
+  updateHall
 } from "./api";
 
 
@@ -29,6 +31,15 @@ export const useNowPlayingMovies =
   };
 
 
+
+
+
+
+
+
+
+// HALLS
+
 export const useHalls = () => {
 
   return useQuery({
@@ -46,8 +57,36 @@ export const useCreateHall =
     });
 
   };
+export const useUpdateHall =
+  () => {
 
-export const useCreateScreening =
+    return useMutation({
+      mutationFn: ({
+        hallId,
+        data,
+      }: {
+        hallId: number;
+        data: any;
+      }) =>
+        updateHall(hallId, data),
+    });
+
+  };
+
+
+
+
+
+
+
+
+
+
+  
+
+//SCREENINGS
+
+  export const useCreateScreening =
   () => {
 
     return useMutation({
@@ -56,3 +95,16 @@ export const useCreateScreening =
     });
 
   };
+
+
+  export const useScreenings =
+  () => {
+
+    return useQuery({
+      queryKey: ["screenings"],
+
+      queryFn: getScreenings,
+    });
+
+  };
+

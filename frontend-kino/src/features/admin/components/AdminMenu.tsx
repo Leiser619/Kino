@@ -7,7 +7,7 @@ import {
   Film,
   Clapperboard,
   Armchair,
-  // Users,
+  Users,
   Settings,
   LogOut,
 } from "lucide-react";
@@ -27,9 +27,9 @@ export default function AdminMenu() {
       path: "/admin",
     },
     {
-      label: "Filmy",
-      icon: Film,
-      path: "/admin/movies",
+      label: "Pracownicy",
+      icon: Users,
+      path: "/admin/employees",
     },
     {
       label: "Pokazy",
@@ -41,11 +41,6 @@ export default function AdminMenu() {
       icon: Armchair,
       path: "/admin/halls",
     },
-    // {
-    //   label: "Użytkownicy",
-    //   icon: Users,
-    //   path: "/admin/users",
-    // },
     {
       label: "Ustawienia",
       icon: Settings,

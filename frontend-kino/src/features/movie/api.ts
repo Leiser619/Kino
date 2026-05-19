@@ -61,7 +61,22 @@ export const getMovieBySearchKey = async (
 ): Promise<MovieSchemaType> => {
 
   const res = await api.get(
-    `/movies/${searchKey}`
+    `/movies/search/${searchKey}`
+  );
+
+  return MovieSchema.parse(
+    res.data
+  );
+};
+
+
+
+export const getMovieById = async (
+  id: string
+): Promise<MovieSchemaType> => {
+console.log("Pobieranie filmu o ID:", id);
+  const res = await api.get(
+    `/movies/tmdb/${id}`
   );
 
   return MovieSchema.parse(

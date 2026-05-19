@@ -7,6 +7,8 @@ import lombok.Data;
 @Builder
 public class MovieDto {
 
+    private Long tmdbId;
+
     private String imdbId;
 
     private String title;

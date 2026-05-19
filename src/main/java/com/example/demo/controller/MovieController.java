@@ -34,12 +34,17 @@ public class MovieController {
         return tmdbService.getFamilyMovies();
     }
 
-    @GetMapping("/{searchKey}")
+    @GetMapping("/search/{searchKey}")
     public MovieDto getMovie(
             @PathVariable String searchKey
     ) {
         return tmdbService.getMovieByImdbId(searchKey);
     }
 
-
+    @GetMapping("/tmdb/{id}")
+    public MovieDto getMovieByTmdbId(
+            @PathVariable("id") Long id
+    ) {
+        return tmdbService.getMovieByTmdbId(id);
+    }
 }

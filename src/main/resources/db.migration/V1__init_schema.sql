@@ -62,7 +62,7 @@ CREATE TABLE seat_reservation (
 
                                   screening_id BIGINT NOT NULL,
 
-                                  owner_id BIGINT,
+                                  owner_email VARCHAR(255),
 
                                   CONSTRAINT fk_seat_reservation_screening
                                       FOREIGN KEY (screening_id)

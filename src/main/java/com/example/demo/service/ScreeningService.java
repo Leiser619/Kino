@@ -8,6 +8,9 @@ import com.example.demo.repository.ScreeningRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ScreeningService {
@@ -20,6 +23,8 @@ public class ScreeningService {
         Hall hall = hallRepository.findById(req.getHallId())
                 .orElseThrow();
 
+
+
         Screening screening = new Screening();
 
         screening.setTmdbMovieId(req.getTmdbMovieId());
@@ -29,4 +34,13 @@ public class ScreeningService {
 
         return screeningRepository.save(screening);
     }
+
+    public List<Screening> findAll(){
+        return screeningRepository.findAll();
+    }
+
+    public Optional<Screening> findById(Long id){
+        return screeningRepository.findById(id);
+    }
+
 }
