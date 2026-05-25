@@ -116,3 +116,51 @@ export const getScreenings =
 
     return res.data;
 };
+
+
+// EMPLOYEES
+
+export const getEmployees =
+  async () => {
+
+    const res = await api.get(
+      "/auth/employees"
+    );
+
+    return res.data;
+};
+
+export const addEmployee =
+  async (email: string) => {
+    console.log("Adding employee with email:", email);
+    const res = await api.put(
+      "/auth/employees",
+      { email }
+    );
+
+    return res.data;
+};
+
+export const removeEmployee =
+  async (id: number) => {
+
+    const res = await api.delete(
+      `/auth/employees/${id}`
+    );
+
+    return res.data;
+};
+
+
+
+
+//STATS
+export const getAdminStats =
+  async () => {
+
+    const res = await api.get(
+      "/admin_panel/stats"
+    );
+    console.log("Admin stats response:", res.data);
+    return res.data;
+};

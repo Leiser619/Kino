@@ -1,21 +1,21 @@
 package com.example.demo.controller;
 
-
+import com.example.demo.dto.auth.AddEmployeeRequest;
 import com.example.demo.dto.auth.LoginRequest;
+import com.example.demo.dto.auth.MeResponse;
 import com.example.demo.dto.auth.RegisterRequest;
+import com.example.demo.model.User;
 import com.example.demo.security.UserPrincipal;
 import com.example.demo.service.AuthService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -31,7 +31,11 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public void login(@Valid @RequestBody LoginRequest req, HttpServletResponse response) {
+    public void login(
+            @Valid @RequestBody LoginRequest req,
+            HttpServletResponse response
+    ) {
+
         String token = authService.login(req);
 
         ResponseCookie cookie = ResponseCookie.from("jwt", token)
@@ -42,13 +46,29 @@ public class AuthController {
                 .sameSite("Lax")
                 .build();
 
-        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+        response.addHeader(
+                HttpHeaders.SET_COOKIE,
+                cookie.toString()
+        );
     }
-//    @GetMapping("/me")
-//    public String me(@AuthenticationPrincipal UserPrincipal user) {
-//        return user.getEmail();
-//    }
-//
+
+    @GetMapping("/me")
+    public ResponseEntity<?> me(
+            @AuthenticationPrincipal UserPrincipal user
+    ) {
+
+        if (user == null) {
+            return ResponseEntity.ok(null);
+        }
+
+        return ResponseEntity.ok(
+                new MeResponse(
+                        user.getId(),
+                        user.getEmail(),
+                        user.getRole().name()
+                )
+        );
+    }
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logout() {
@@ -62,7 +82,35 @@ public class AuthController {
                 .build();
 
         return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .header(
+                        HttpHeaders.SET_COOKIE,
+                        cookie.toString()
+                )
                 .build();
+    }
+
+
+
+    @GetMapping("/employees")
+    public List<User> getEmployees() {
+        return authService.getEmployees();
+    }
+
+    @PutMapping("/employees")
+    public User addEmployee(
+            @Valid @RequestBody AddEmployeeRequest request
+    ) {
+
+        return authService.addEmployee(
+                request.email()
+        );
+    }
+
+    @DeleteMapping("/employees/{id}")
+    public User removeEmployee(
+            @PathVariable("id") Long id
+    ) {
+
+        return authService.removeEmployee(id);
     }
 }

@@ -1,7 +1,7 @@
 // src/pages/MainPage.tsx
 
 import UserMenu from "../features/user/components/UserMenu";
-
+import UserFooter from "../features/user/components/UserFooter";
 import { MovieSlider } from "../features/movie/components/MovieSlider";
 
 export default function MainPage() {
@@ -170,7 +170,7 @@ export default function MainPage() {
         />
 
       </main>
-
+      <UserFooter />
     </div>
   );
 }

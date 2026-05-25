@@ -1,3 +1,5 @@
+// src/features/admin/components/AdminStats.tsx
+
 import {
   PieChart,
   Pie,
@@ -5,15 +7,58 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  { name: "Zajęte", value: 78 },
-  { name: "Wolne", value: 22 },
-];
+import {
+  useAdminStats,
+} from "../hooks";
 
 export default function AdminStats() {
 
+  //
+  // API
+  //
+
+  const {
+    data: stats,
+    isLoading,
+  } = useAdminStats();
+
+  //
+  // LOADING
+  //
+
+  if (isLoading || !stats) {
+
+    return (
+      <div className="text-white">
+        Ładowanie statystyk...
+      </div>
+    );
+  }
+
+  //
+  // CHART DATA
+  //
+
+  const data = [
+    {
+      name: "Zajęte",
+      value: stats.occupiedSeatsPercent,
+    },
+    {
+      name: "Wolne",
+      value: 100 - stats.occupiedSeatsPercent,
+    },
+  ];
+
+  //
+  // RENDER
+  //
+
   return (
+
     <div className="grid grid-cols-3 gap-6">
+
+      {/* TODAY SCREENINGS */}
 
       <div
         className="
@@ -29,11 +74,20 @@ export default function AdminStats() {
           Dzisiejsze pokazy
         </p>
 
-        <h2 className="mt-3 text-4xl font-bold text-white">
-          24
+        <h2
+          className="
+            mt-3
+            text-4xl
+            font-bold
+            text-white
+          "
+        >
+          {stats.todayScreenings}
         </h2>
 
       </div>
+
+      {/* OCCUPIED */}
 
       <div
         className="
@@ -49,11 +103,20 @@ export default function AdminStats() {
           Zajęte miejsca
         </p>
 
-        <h2 className="mt-3 text-4xl font-bold text-white">
-          78%
+        <h2
+          className="
+            mt-3
+            text-4xl
+            font-bold
+            text-white
+          "
+        >
+          {stats.occupiedSeatsPercent}%
         </h2>
 
       </div>
+
+      {/* ACTIVE HALLS */}
 
       <div
         className="
@@ -69,11 +132,20 @@ export default function AdminStats() {
           Aktywne sale
         </p>
 
-        <h2 className="mt-3 text-4xl font-bold text-white">
-          6
+        <h2
+          className="
+            mt-3
+            text-4xl
+            font-bold
+            text-white
+          "
+        >
+          {stats.activeHalls}
         </h2>
 
       </div>
+
+      {/* CHART */}
 
       <div
         className="
@@ -86,13 +158,23 @@ export default function AdminStats() {
         "
       >
 
-        <h3 className="mb-6 text-xl font-semibold text-white">
+        <h3
+          className="
+            mb-6
+            text-xl
+            font-semibold
+            text-white
+          "
+        >
           Obłożenie miejsc
         </h3>
 
         <div className="h-[300px]">
 
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer
+            width="100%"
+            height="100%"
+          >
 
             <PieChart>
 
@@ -117,6 +199,8 @@ export default function AdminStats() {
 
       </div>
 
+      {/* ACTIVE SCREENINGS */}
+
       <div
         className="
           rounded-3xl
@@ -127,38 +211,48 @@ export default function AdminStats() {
         "
       >
 
-        <h3 className="mb-4 text-lg font-semibold text-white">
+        <h3
+          className="
+            mb-4
+            text-lg
+            font-semibold
+            text-white
+          "
+        >
           Zajęte sale
         </h3>
 
         <div className="space-y-4">
 
-          {[
-            "IMAX 1",
-            "VIP Gold",
-            "Sala 4",
-          ].map((hall) => (
+          {(stats.busyHalls  || []).map(
+            (hall: string) => (
 
-            <div
-              key={hall}
+              <div
+                key={hall}
 
-              className="
-                rounded-2xl
-                bg-slate-950
-                p-4
-              "
-            >
+                className="
+                  rounded-2xl
+                  bg-slate-950
+                  p-4
+                "
+              >
 
-              <p className="text-white">
-                {hall}
-              </p>
+                <p className="text-white">
+                  {hall}
+                </p>
 
-              <p className="text-sm text-slate-400">
-                Trwa pokaz
-              </p>
+                <p
+                  className="
+                    text-sm
+                    text-slate-400
+                  "
+                >
+                  Trwa pokaz
+                </p>
 
-            </div>
-          ))}
+              </div>
+            )
+          )}
 
         </div>
 
@@ -166,4 +260,4 @@ export default function AdminStats() {
 
     </div>
   );
-}   
+}

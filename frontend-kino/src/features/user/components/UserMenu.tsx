@@ -1,16 +1,95 @@
 // src/features/user/components/UserMenu.tsx
 
-import { useNavigate } from "react-router-dom";
-import { Search, MapPin } from "lucide-react";
+import { useNavigate }
+from "react-router-dom";
+import logo from "../../../assets/logo.png";
+import {
+  Search,
+  MapPin,
+  Shield,
+  LogOut,
+} from "lucide-react";
 
-import { useMe } from "../../auth/hooks";
+import {
+  useLogout,
+  useMe,
+} from "../../auth/hooks";
 
 export default function UserMenu() {
 
-  const navigate = useNavigate();
+  //
+  // NAVIGATE
+  //
 
-  // const { data: user } = useMe();
-  const user="Dawid"
+  const navigate =
+    useNavigate();
+
+  //
+  // USER
+  //
+
+  const {
+    data: user,
+    isLoading,
+  } = useMe();
+
+  //
+  // LOGOUT
+  //
+
+  const logoutMutation =
+    useLogout();
+
+  //
+  // NAVIGATION ITEMS
+  //
+
+  const navItems = [
+
+    {
+      label: "Główna",
+      path: "/",
+    },
+
+    {
+      label: "Repertuar",
+      path: "/repertoir",
+    },
+
+    {
+      label: "Prezenty",
+      path: "/gifts",
+    },
+
+    {
+      label: "VIP",
+      path: "/vipPage",
+    },
+
+    {
+      label: "VIP Card",
+      path: "/vipCard",
+    },
+
+    {
+      label: "Bar",
+      path: "/barPage",
+    },
+
+  ];
+
+  //
+  // HANDLERS
+  //
+
+  const handleLogout =
+    () => {
+      logoutMutation.mutate();
+    };
+
+  //
+  // RENDER
+  //
 
   return (
 
@@ -29,6 +108,7 @@ export default function UserMenu() {
     >
 
       {/* TOP BAR */}
+
       <div
         className="
           flex
@@ -40,13 +120,28 @@ export default function UserMenu() {
       >
 
         {/* LEFT */}
-        <div className="flex items-center gap-8">
+
+        <div
+          className="
+            flex
+            items-center
+            gap-8
+          "
+        >
 
           <img
-            src="../../../assets/logo.png"
+            src={logo}
             alt="Logo"
-            className="h-12 w-auto cursor-pointer"
-            onClick={() => navigate("/")}
+
+            className="
+              h-12
+              w-auto
+              cursor-pointer
+            "
+
+            onClick={() =>
+              navigate("/")
+            }
           />
 
           <button
@@ -60,13 +155,17 @@ export default function UserMenu() {
               hover:text-red-500
             "
           >
+
             <MapPin size={16} />
+
             Wybierz kino
+
           </button>
 
         </div>
 
         {/* CENTER */}
+
         <div
           className="
             hidden
@@ -79,14 +178,15 @@ export default function UserMenu() {
             bg-zinc-900
             px-4
             py-3
-
             lg:flex
           "
         >
 
           <Search
             size={18}
-            className="text-zinc-500"
+            className="
+              text-zinc-500
+            "
           />
 
           <input
@@ -100,7 +200,6 @@ export default function UserMenu() {
               text-sm
               text-white
               outline-none
-
               placeholder:text-zinc-500
             "
           />
@@ -108,12 +207,38 @@ export default function UserMenu() {
         </div>
 
         {/* RIGHT */}
-        <div className="flex items-center gap-4">
 
-          {!user && (
+        <div
+          className="
+            flex
+            items-center
+            gap-4
+          "
+        >
+
+          {/* LOADING */}
+
+          {isLoading && (
+
+            <div
+              className="
+                text-sm
+                text-zinc-400
+              "
+            >
+              Ładowanie...
+            </div>
+          )}
+
+          {/* GUEST */}
+
+          {!isLoading && !user && (
             <>
+
               <button
-                onClick={() => navigate("/login")}
+                onClick={() =>
+                  navigate("/login")
+                }
 
                 className="
                   rounded-xl
@@ -124,7 +249,6 @@ export default function UserMenu() {
                   text-sm
                   text-white
                   transition
-
                   hover:border-red-500
                   hover:text-red-500
                 "
@@ -133,7 +257,9 @@ export default function UserMenu() {
               </button>
 
               <button
-                onClick={() => navigate("/register")}
+                onClick={() =>
+                  navigate("/register")
+                }
 
                 className="
                   rounded-xl
@@ -144,67 +270,153 @@ export default function UserMenu() {
                   font-medium
                   text-white
                   transition
-
                   hover:bg-red-500
                 "
               >
                 Rejestracja
               </button>
+
             </>
           )}
 
-          {user && (
+          {/* USER */}
+
+          {!isLoading && user && (
+
             <div
               className="
                 flex
                 items-center
-                gap-3
+                gap-5
               "
             >
+
+              {/* ADMIN */}
+
+              {user.role === "ADMIN" && (
+
+                <button
+                  onClick={() =>
+                    navigate("/admin")
+                  }
+
+                  className="
+                    flex
+                    items-center
+                    gap-2
+                    rounded-xl
+                    border
+                    border-red-600
+                    px-4
+                    py-2
+                    text-sm
+                    text-red-500
+                    transition
+                    hover:bg-red-600
+                    hover:text-white
+                  "
+                >
+
+                  <Shield size={16} />
+
+                  Admin
+
+                </button>
+              )}
+
+              {/* PROFILE */}
 
               <div
                 className="
                   flex
-                  h-10
-                  w-10
                   items-center
-                  justify-center
-                  rounded-full
-                  bg-red-600
-                  font-semibold
-                  text-white
+                  gap-3
                 "
               >
-                {user.email?.[0]?.toUpperCase()}
-              </div>
 
-              <div>
-                <p className="text-sm text-white">
-                  {user.email}
-                </p>
-
-                <button
-                  onClick={() =>
-                    navigate("/profile")
-                  }
-
+                <div
                   className="
-                    text-xs
-                    text-zinc-400
-                    hover:text-red-500
+                    flex
+                    h-10
+                    w-10
+                    items-center
+                    justify-center
+                    rounded-full
+                    bg-red-600
+                    font-semibold
+                    text-white
                   "
                 >
-                  Profil
-                </button>
+                  {user.email?.[0]
+                    ?.toUpperCase()}
+                </div>
+
+                <div>
+
+                  <p
+                    className="
+                      text-sm
+                      text-white
+                    "
+                  >
+                    {user.email}
+                  </p>
+
+                  <button
+                    onClick={() =>
+                      navigate("/profile")
+                    }
+
+                    className="
+                      text-xs
+                      text-zinc-400
+                      hover:text-red-500
+                    "
+                  >
+                    Profil
+                  </button>
+
+                </div>
+
               </div>
+
+              {/* LOGOUT */}
+
+              <button
+                onClick={handleLogout}
+
+                className="
+                  flex
+                  items-center
+                  gap-2
+                  rounded-xl
+                  border
+                  border-zinc-700
+                  px-4
+                  py-2
+                  text-sm
+                  text-zinc-300
+                  transition
+                  hover:border-red-500
+                  hover:text-red-500
+                "
+              >
+
+                <LogOut size={16} />
+
+                Wyloguj
+
+              </button>
 
             </div>
           )}
 
         </div>
+
       </div>
 
       {/* NAVBAR */}
+
       <div
         className="
           flex
@@ -218,31 +430,29 @@ export default function UserMenu() {
         "
       >
 
-        {[
-          "Repertuar",
-          "Oferty",
-          "Prezenty",
-          "VIP",
-          "VIP Card",
-          "Bar",
-          "Mapa",
-        ].map((item) => (
+        {navItems.map(
+          (item) => (
 
-          <button
-            key={item}
+            <button
+              key={item.label}
 
-            className="
-              text-sm
-              font-medium
-              text-zinc-300
-              transition
+              onClick={() =>
+                navigate(item.path)
+              }
 
-              hover:text-red-500
-            "
-          >
-            {item}
-          </button>
-        ))}
+              className="
+                text-sm
+                font-medium
+                text-zinc-300
+                transition
+                hover:text-red-500
+              "
+            >
+              {item.label}
+            </button>
+
+          )
+        )}
 
       </div>
 

@@ -211,22 +211,6 @@ export default function MovieHero({
               gap-4
             "
           >
-
-            <button
-              className="
-                rounded-2xl
-                bg-red-600
-                px-8
-                py-4
-                font-semibold
-                transition
-
-                hover:bg-red-500
-              "
-            >
-              Kup bilet
-            </button>
-
             <button
               className="
                 rounded-2xl

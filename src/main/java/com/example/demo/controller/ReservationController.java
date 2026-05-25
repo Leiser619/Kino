@@ -23,7 +23,7 @@ public class ReservationController {
 
     @GetMapping("/screening/{screeningId}")
     public List<Reservation> getByScreening(
-            @PathVariable Long screeningId
+            @PathVariable("screeningId") Long screeningId
     ) {
         return reservationService
                 .getByScreening(screeningId);

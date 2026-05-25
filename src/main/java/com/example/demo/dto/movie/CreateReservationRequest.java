@@ -8,7 +8,7 @@ import java.util.List;
 public class CreateReservationRequest {
 
     private Long screeningId;
-    private String email;
+    private String ownerEmail;
 
     private List<SeatDto> seats;
 

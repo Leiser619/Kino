@@ -52,7 +52,6 @@ public class TmdbService {
     }
 
 
-
     public List<MovieDto> getTrending() {
 
         TmdbListResponse response = restClient.get()
@@ -60,27 +59,19 @@ public class TmdbService {
                 .uri(uriBuilder -> uriBuilder
                         .path("/trending/movie/day")
                         .queryParam("language", "en-US")
-                        .queryParam("page", 1)
                         .build()
                 )
-
                 .header(
                         "Authorization",
                         "Bearer " + tmdbProperties.getApiKey()
                 )
-
                 .retrieve()
-
                 .body(TmdbListResponse.class);
 
         assert response != null;
-
         return response.getResults()
-
                 .stream()
-
                 .map(this::mapToMovieDto)
-
                 .toList();
     }
 

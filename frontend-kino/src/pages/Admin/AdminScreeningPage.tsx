@@ -2,7 +2,7 @@ import { useScreenings }
 from "../../features/admin/hooks";
 
 import ScreeningCard
-from "../../features/screening/ScreeningCard";
+from "../../features/screening/ScreeningCardAdmin";
 
 import type { Screening }
 from "../../features/screening/types";

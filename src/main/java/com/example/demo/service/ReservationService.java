@@ -63,7 +63,7 @@ public class ReservationService {
                                     screening
                             );
 
-                            reservation.setOwnerEmail(req.getEmail());
+                            reservation.setOwnerEmail(req.getOwnerEmail());
 
                             return reservation;
                         })

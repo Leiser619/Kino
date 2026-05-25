@@ -23,8 +23,6 @@ public class ScreeningController {
 
     @GetMapping()
     public List<Screening> getScreenings(){
-
-        System.out.println("siemna");
         return screeningService.findAll();
     }
 

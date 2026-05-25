@@ -1,4 +1,4 @@
-// src/features/screening/ScreeningCard.tsx
+// src/features/screening/ScreeningCardAdmin.tsx
 
 import { Link }
 from "react-router-dom";
@@ -10,7 +10,7 @@ type Props = {
   screening: any;
 };
 
-export default function ScreeningCard({
+export default function ScreeningCardAdmin({
   screening,
 }: Props) {
 
@@ -34,7 +34,7 @@ export default function ScreeningCard({
         rounded-3xl
         border
         border-zinc-800
-        bg-gray-950
+        bg-slate-900
         p-6
       "
     >
@@ -101,14 +101,14 @@ export default function ScreeningCard({
 
         className="
           rounded-2xl
-          bg-red-600
+          bg-blue-600
           px-6
           py-4
           font-semibold
           hover:bg-red-500
         "
       >
-        Kup bilet
+        Sprawdz szczegóły seansu
       </Link>
 
     </div>

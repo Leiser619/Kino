@@ -1,5 +1,6 @@
 //src/features/auth/api.ts
 import { api } from "../../shared/api/axios";
+import type { MeResponse } from "./components/types";
 
 export type RegisterRequest = {
   email: string;
@@ -17,7 +18,11 @@ export const login = async (data: RegisterRequest) => {
 };
 
 export const getMe = async () => {
-  const res = await api.get("/auth/me");
+
+  const res = await api.get<MeResponse>(
+    "/auth/me"
+  );
+
   return res.data;
 };
 

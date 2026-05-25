@@ -1,7 +1,7 @@
 // src/pages/ScreeningDetailsPage.tsx
 
 import { useParams } from "react-router-dom";
-
+import UserFooter from "../features/user/components/UserFooter";
 import UserMenu
 from "../features/user/components/UserMenu";
 
@@ -79,7 +79,7 @@ export default function ScreeningDetailsPage() {
         />
 
       </main>
-
+      <UserFooter />
     </div>
   );
 }

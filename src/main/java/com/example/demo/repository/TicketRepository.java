@@ -12,4 +12,6 @@ public interface TicketRepository extends JpaRepository<Ticket,Long> {
     boolean existsByRowAndColAndScreening(int row, int col, Screening screening);
 
     List<Ticket> getAllByScreeningAndPaid(Screening screening,boolean paid);
+
+    long count();
 }

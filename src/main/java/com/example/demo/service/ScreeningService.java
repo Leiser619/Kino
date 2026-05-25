@@ -8,6 +8,7 @@ import com.example.demo.repository.ScreeningRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +37,8 @@ public class ScreeningService {
     }
 
     public List<Screening> findAll(){
-        return screeningRepository.findAll();
+        LocalDateTime now = LocalDateTime.now();
+        return screeningRepository.findByStartTimeAfter(now);
     }
 
     public Optional<Screening> findById(Long id){

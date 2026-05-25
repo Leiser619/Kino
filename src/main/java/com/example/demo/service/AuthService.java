@@ -3,6 +3,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.auth.LoginRequest;
 import com.example.demo.dto.auth.RegisterRequest;
+import com.example.demo.model.Role;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.UserPrincipal;
@@ -14,6 +15,8 @@ import org.springframework.security.authentication.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -35,6 +38,7 @@ public class AuthService {
         User user = new User();
         user.setEmail(email);
         user.setPasswordHash(passwordEncoder.encode(req.password()));
+        user.setRole(Role.USER);
         userRepository.save(user);
     }
 
@@ -49,5 +53,39 @@ public class AuthService {
                 principal.getId(),
                 principal.getUsername()
         );
+    }
+    public List<User> getEmployees() {
+
+        return userRepository.findByRole(
+                Role.ADMIN
+        );
+    }
+
+    @Transactional
+    public User addEmployee(String email) {
+
+        User user = userRepository
+                .findByEmailIgnoreCase(email)
+                .orElseThrow(() ->
+                        new RuntimeException("User not found")
+                );
+
+        user.setRole(Role.ADMIN);
+
+        return userRepository.save(user);
+    }
+
+    @Transactional
+    public User removeEmployee(Long id) {
+
+        User user = userRepository
+                .findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("User not found")
+                );
+
+        user.setRole(Role.USER);
+
+        return userRepository.save(user);
     }
 }

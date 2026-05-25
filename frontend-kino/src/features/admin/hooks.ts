@@ -3,6 +3,7 @@
 import {
   useMutation,
   useQuery,
+  useQueryClient
 } from "@tanstack/react-query";
 
 import {
@@ -11,7 +12,11 @@ import {
   getHalls,
   getNowPlayingMovies,
   getScreenings,
-  updateHall
+  updateHall,  
+  addEmployee,
+  getEmployees,
+  removeEmployee,
+  getAdminStats,
 } from "./api";
 
 
@@ -108,3 +113,73 @@ export const useUpdateHall =
 
   };
 
+
+
+// ======================
+// EMPLOYEES
+// ======================
+
+export const useEmployees =
+  () => {
+
+    return useQuery({
+      queryKey: ["employees"],
+      queryFn: getEmployees,
+    });
+
+  };
+
+export const useAddEmployee =
+  () => {
+
+    const queryClient =
+      useQueryClient();
+
+    return useMutation({
+      mutationFn: addEmployee,
+
+      onSuccess: () => {
+
+        queryClient.invalidateQueries({
+          queryKey: ["employees"],
+        });
+
+      },
+    });
+
+  };
+
+export const useRemoveEmployee =
+  () => {
+
+    const queryClient =
+      useQueryClient();
+
+    return useMutation({
+      mutationFn: removeEmployee,
+
+      onSuccess: () => {
+
+        queryClient.invalidateQueries({
+          queryKey: ["employees"],
+        });
+
+      },
+    });
+
+  };
+
+//STATS
+
+  export const useAdminStats =
+  () => {
+
+    return useQuery({
+      queryKey: ["admin-stats"],
+
+      queryFn: getAdminStats,
+
+      refetchInterval: 30000,
+    });
+
+  };

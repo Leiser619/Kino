@@ -1,6 +1,11 @@
 // src/pages/RepertoirePage.tsx
+
 import { useMemo, useState }
 from "react";
+import UserFooter from "../features/user/components/UserFooter";
+import {
+  useSearchParams,
+} from "react-router-dom";
 
 import UserMenu
 from "../features/user/components/UserMenu";
@@ -9,15 +14,45 @@ import {
   useScreenings,
 } from "../features/screening/hooks";
 
+import type {
+  Screening,
+} from "../features/screening/types";
+
 import ScreeningCard
 from "../features/screening/ScreeningCard";
 
+import {
+  useGetNowPlayingMovies,
+} from "../features/movie/hooks";
+
 export default function RepertoirePage() {
+
+  //
+  // SCREENINGS
+  //
 
   const {
     data: screenings,
     isLoading,
   } = useScreenings();
+
+  //
+  // MOVIES
+  //
+
+  const {
+    data: movies,
+  } = useGetNowPlayingMovies();
+
+  //
+  // SEARCH PARAMS
+  //
+
+  const [searchParams] =
+    useSearchParams();
+
+  const movieFromUrl =
+    searchParams.get("movie") || "";
 
   //
   // FILTERS
@@ -33,6 +68,11 @@ export default function RepertoirePage() {
     setSelectedDate,
   ] = useState("");
 
+  const [
+    selectedMovie,
+    setSelectedMovie,
+  ] = useState(movieFromUrl);
+
   //
   // UNIQUE HALLS
   //
@@ -40,12 +80,20 @@ export default function RepertoirePage() {
   const uniqueHalls =
     [...new Set(
       screenings?.map(
-        (s: any) => s.hall.name
+        (s: Screening) =>
+          s.hall.name
       )
     )];
 
   //
-  // FILTERED
+  // UNIQUE MOVIES
+  //
+
+  const uniqueMovies =
+    movies ?? [];
+
+  //
+  // FILTERED SCREENINGS
   //
 
   const filteredScreenings =
@@ -56,11 +104,30 @@ export default function RepertoirePage() {
       }
 
       return screenings.filter(
-        (screening: any) => {
+        (screening: Screening) => {
+
+          //
+          // DATE
+          //
 
           const screeningDate =
             screening.startTime
               .split("T")[0];
+
+          //
+          // MOVIE
+          //
+
+          const movie =
+            movies?.find(
+              (m) =>
+                m.tmdbId ===
+                screening.tmdbMovieId
+            );
+
+          //
+          // MATCHES
+          //
 
           const hallMatch =
             !selectedHall ||
@@ -72,18 +139,30 @@ export default function RepertoirePage() {
             screeningDate ===
             selectedDate;
 
+          const movieMatch =
+            !selectedMovie ||
+            String(movie?.tmdbId) ===
+            selectedMovie;
+
           return (
             hallMatch &&
-            dateMatch
+            dateMatch &&
+            movieMatch
           );
         }
       );
 
     }, [
       screenings,
+      movies,
       selectedHall,
       selectedDate,
+      selectedMovie,
     ]);
+
+  //
+  // LOADING
+  //
 
   if (isLoading) {
 
@@ -93,6 +172,10 @@ export default function RepertoirePage() {
       </div>
     );
   }
+
+  //
+  // RENDER
+  //
 
   return (
 
@@ -145,7 +228,7 @@ export default function RepertoirePage() {
           className="
             mb-10
             grid
-            grid-cols-3
+            grid-cols-4
             gap-4
           "
         >
@@ -190,6 +273,46 @@ export default function RepertoirePage() {
 
           </select>
 
+          {/* MOVIE */}
+
+          <select
+            value={selectedMovie}
+
+            onChange={(e) =>
+              setSelectedMovie(
+                e.target.value
+              )
+            }
+
+            className="
+              rounded-2xl
+              border
+              border-zinc-800
+              bg-zinc-900
+              px-4
+              py-3
+            "
+          >
+
+            <option value="">
+              Wszystkie filmy
+            </option>
+
+            {uniqueMovies.map(
+              (movie) => (
+
+                <option
+                  key={movie.tmdbId}
+                  value={movie.tmdbId}
+                >
+                  {movie.title}
+                </option>
+
+              )
+            )}
+
+          </select>
+
           {/* DATE */}
 
           <input
@@ -220,6 +343,7 @@ export default function RepertoirePage() {
 
               setSelectedHall("");
               setSelectedDate("");
+              setSelectedMovie("");
 
             }}
 
@@ -242,7 +366,7 @@ export default function RepertoirePage() {
         <div className="space-y-5">
 
           {filteredScreenings.map(
-            (screening: any) => (
+            (screening: Screening) => (
 
               <ScreeningCard
                 key={screening.id}
@@ -255,7 +379,7 @@ export default function RepertoirePage() {
         </div>
 
       </main>
-
+      <UserFooter />
     </div>
   );
 }

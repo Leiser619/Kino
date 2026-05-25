@@ -1,7 +1,7 @@
 // src/pages/RegisterPage.tsx
 import RegisterForm from "../features/auth/components/RegisterForm";
 import UserMenu from "../features/user/components/UserMenu";
-
+import UserFooter from "../features/user/components/UserFooter";
 export default function RegisterPage() {
   return  (
       <div className="flex flex-col w-full bg-black h-screen overflow-hidden">
@@ -10,6 +10,7 @@ export default function RegisterPage() {
             </div>
   
               <RegisterForm/>;
+              <UserFooter />
       </div>
           );
 }

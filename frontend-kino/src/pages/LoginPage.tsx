@@ -1,7 +1,7 @@
 // src/pages/LoginPage.tsx
 import LoginForm from "../features/auth/components/LoginForm";
 import UserMenu from "../features/user/components/UserMenu";
-
+import UserFooter from "../features/user/components/UserFooter";
 export default function LoginPage() {
   return  (
       <div className="flex flex-col w-full bg-black h-screen overflow-hidden">
@@ -10,6 +10,7 @@ export default function LoginPage() {
             </div>
   
               <LoginForm/>;
+                    <UserFooter />
       </div>
           );
 }
