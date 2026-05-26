@@ -115,9 +115,6 @@ export const useUpdateHall =
 
 
 
-// ======================
-// EMPLOYEES
-// ======================
 
 export const useEmployees =
   () => {

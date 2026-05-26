@@ -21,9 +21,7 @@ export default function AddScreeningForm() {
   const createScreening =
     useCreateScreening();
 
-  //
-  // STATE
-  //
+
 
   const [
     tmdbMovieId,
@@ -42,9 +40,6 @@ export default function AddScreeningForm() {
   const [price, setPrice] =
     useState(29.99);
 
-  //
-  // SUBMIT
-  //
 
   async function handleSubmit(
     e: React.FormEvent

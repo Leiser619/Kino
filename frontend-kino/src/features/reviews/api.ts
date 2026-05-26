@@ -4,7 +4,7 @@ import type {
   CreateReviewRequest,
 } from "./types";
 
-// GET REVIEWS
+
 
 export const getMovieReviews =
   async (
@@ -18,7 +18,7 @@ export const getMovieReviews =
     return res.data;
 };
 
-// CREATE REVIEW
+
 
 export const createReview =
   async (

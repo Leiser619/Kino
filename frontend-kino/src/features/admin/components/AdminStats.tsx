@@ -13,18 +13,13 @@ import {
 
 export default function AdminStats() {
 
-  //
-  // API
-  //
+
 
   const {
     data: stats,
     isLoading,
   } = useAdminStats();
 
-  //
-  // LOADING
-  //
 
   if (isLoading || !stats) {
 
@@ -35,9 +30,7 @@ export default function AdminStats() {
     );
   }
 
-  //
-  // CHART DATA
-  //
+
 
   const data = [
     {
@@ -50,9 +43,7 @@ export default function AdminStats() {
     },
   ];
 
-  //
-  // RENDER
-  //
+
 
   return (
 
@@ -199,7 +190,6 @@ export default function AdminStats() {
 
       </div>
 
-      {/* ACTIVE SCREENINGS */}
 
       <div
         className="

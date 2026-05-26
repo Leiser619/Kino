@@ -17,9 +17,6 @@ import {
 
 export default function GiftsPage() {
 
-  //
-  // PRODUCTS
-  //
 
   const products = [
 

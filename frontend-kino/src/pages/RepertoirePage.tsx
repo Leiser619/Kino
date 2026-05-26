@@ -27,26 +27,18 @@ import {
 
 export default function RepertoirePage() {
 
-  //
-  // SCREENINGS
-  //
+
 
   const {
     data: screenings,
     isLoading,
   } = useScreenings();
 
-  //
-  // MOVIES
-  //
+
 
   const {
     data: movies,
   } = useGetNowPlayingMovies();
-
-  //
-  // SEARCH PARAMS
-  //
 
   const [searchParams] =
     useSearchParams();
@@ -54,9 +46,7 @@ export default function RepertoirePage() {
   const movieFromUrl =
     searchParams.get("movie") || "";
 
-  //
-  // FILTERS
-  //
+
 
   const [
     selectedHall,
@@ -73,9 +63,6 @@ export default function RepertoirePage() {
     setSelectedMovie,
   ] = useState(movieFromUrl);
 
-  //
-  // UNIQUE HALLS
-  //
 
   const uniqueHalls =
     [...new Set(
@@ -85,16 +72,12 @@ export default function RepertoirePage() {
       )
     )];
 
-  //
-  // UNIQUE MOVIES
-  //
+
 
   const uniqueMovies =
     movies ?? [];
 
-  //
-  // FILTERED SCREENINGS
-  //
+
 
   const filteredScreenings =
     useMemo(() => {
@@ -106,17 +89,12 @@ export default function RepertoirePage() {
       return screenings.filter(
         (screening: Screening) => {
 
-          //
-          // DATE
-          //
+ 
 
           const screeningDate =
             screening.startTime
               .split("T")[0];
 
-          //
-          // MOVIE
-          //
 
           const movie =
             movies?.find(
@@ -125,9 +103,7 @@ export default function RepertoirePage() {
                 screening.tmdbMovieId
             );
 
-          //
-          // MATCHES
-          //
+
 
           const hallMatch =
             !selectedHall ||
@@ -160,9 +136,6 @@ export default function RepertoirePage() {
       selectedMovie,
     ]);
 
-  //
-  // LOADING
-  //
 
   if (isLoading) {
 
@@ -173,9 +146,7 @@ export default function RepertoirePage() {
     );
   }
 
-  //
-  // RENDER
-  //
+
 
   return (
 
@@ -198,7 +169,7 @@ export default function RepertoirePage() {
         "
       >
 
-        {/* HEADER */}
+
 
         <div className="mb-10">
 
@@ -222,7 +193,7 @@ export default function RepertoirePage() {
 
         </div>
 
-        {/* FILTERS */}
+
 
         <div
           className="
@@ -233,7 +204,7 @@ export default function RepertoirePage() {
           "
         >
 
-          {/* HALL */}
+
 
           <select
             value={selectedHall}
@@ -273,8 +244,7 @@ export default function RepertoirePage() {
 
           </select>
 
-          {/* MOVIE */}
-
+      
           <select
             value={selectedMovie}
 
@@ -313,7 +283,7 @@ export default function RepertoirePage() {
 
           </select>
 
-          {/* DATE */}
+
 
           <input
             type="date"

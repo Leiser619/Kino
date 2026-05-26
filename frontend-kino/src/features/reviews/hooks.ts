@@ -9,7 +9,7 @@ import {
   getMovieReviews,
 } from "./api";
 
-// GET
+
 
 export const useMovieReviews =
   (tmdbId: string) => {
@@ -26,7 +26,7 @@ export const useMovieReviews =
 
   };
 
-// CREATE
+
 
 export const useCreateReview =
   (tmdbId: string) => {
