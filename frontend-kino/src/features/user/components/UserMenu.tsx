@@ -4,6 +4,9 @@ import { useNavigate }
 from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import {
+  useMovieSearch,
+} from "../../movie/hooks";
+import {
   Search,
   MapPin,
   Shield,
@@ -14,35 +17,28 @@ import {
   useLogout,
   useMe,
 } from "../../auth/hooks";
+import { useState } from "react";
 
 export default function UserMenu() {
 
-  //
-  // NAVIGATE
-  //
-
   const navigate =
     useNavigate();
-
-  //
-  // USER
-  //
 
   const {
     data: user,
     isLoading,
   } = useMe();
+  const [searchValue, setSearchValue] =
+  useState("");
 
-  //
-  // LOGOUT
-  //
+  const {
+    data: searchedMovie,
+  } = useMovieSearch(searchValue);
+
 
   const logoutMutation =
     useLogout();
 
-  //
-  // NAVIGATION ITEMS
-  //
 
   const navItems = [
 
@@ -78,18 +74,25 @@ export default function UserMenu() {
 
   ];
 
-  //
-  // HANDLERS
-  //
 
+  const handleSearch =
+    () => {
+
+    if (!searchedMovie) {
+      return;
+    }
+
+    navigate(
+      `/movie/${searchedMovie.tmdbId}`
+    );
+
+    setSearchValue("");
+  };
   const handleLogout =
     () => {
       logoutMutation.mutate();
     };
 
-  //
-  // RENDER
-  //
 
   return (
 
@@ -181,16 +184,37 @@ export default function UserMenu() {
             lg:flex
           "
         >
+        <Search
+          size={18}
 
-          <Search
-            size={18}
-            className="
-              text-zinc-500
-            "
-          />
+          onClick={handleSearch}
 
+          className="
+            cursor-pointer
+            text-zinc-500
+            transition
+            hover:text-red-500
+          "
+        />
           <input
             type="text"
+
+            value={searchValue}
+
+            onChange={(e) =>
+              setSearchValue(
+                e.target.value
+              )
+            }
+
+            onKeyDown={(e) => {
+
+              if (e.key === "Enter") {
+                handleSearch();
+              }
+
+            }}
+
             placeholder="Szukaj filmów..."
 
             className="

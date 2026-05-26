@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.movie.CreateReservationRequest;
 import com.example.demo.model.cinema.Reservation;
 import com.example.demo.service.ReservationService;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class ReservationController {
     @PostMapping
     public List<Reservation> reserve(
             @RequestBody CreateReservationRequest req
-    ) {
+    ) throws MessagingException {
         return reservationService.reserve(req);
     }
 

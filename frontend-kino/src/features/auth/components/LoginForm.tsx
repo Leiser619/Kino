@@ -33,7 +33,7 @@ export default function LoginForm() {
 
     mutate(data, {
       onSuccess: () => {
-        navigate("/profile");
+        navigate("/");
       },
     });
   };

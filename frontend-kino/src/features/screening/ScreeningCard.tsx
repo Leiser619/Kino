@@ -34,7 +34,7 @@ export default function ScreeningCard({
         rounded-3xl
         border
         border-zinc-800
-        bg-gray-950
+        bg-zinc-900
         p-6
       "
     >

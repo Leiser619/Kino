@@ -83,3 +83,18 @@ console.log("Pobieranie filmu o ID:", id);
     res.data
   );
 };
+
+export const searchMovieByTitle =
+  async (
+    query: string
+  ): Promise<MovieSchemaType> => {
+  
+    const res = await api.get(
+      `/movies/search/title/${query}`
+      
+    );
+
+    return MovieSchema.parse(
+      res.data
+    );
+  };

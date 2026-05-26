@@ -1,6 +1,6 @@
-opinie
-
 weryfikacja na endpointach roli
+
+poprawienie movieDetails zeby dzialalo
 
 moze platnosci
 
@@ -13,14 +13,8 @@ jesli mail ma przypisana karte vip to znizka na bilet
 wyslanie biletu i ceny na maila
 
 
+wysylanie bledu na frontend
 
-DO BAZY
-
-
-TEST VALUES
- PO 20 DO KAZDEGO
-
-OPINIE
 
 
 

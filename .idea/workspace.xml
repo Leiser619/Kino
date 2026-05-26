@@ -4,50 +4,74 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ffc0f948-b3dc-4728-afcb-36524bccfd12" name="Changes" comment="Added admin panel , creating and editing halls, reservation for client and fixes">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/AdminStatsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/dto/auth/AddEmployeeRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/dto/auth/AdminStatsDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/dto/auth/MeResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/AdminStatsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/ScreeningCleanupService.java" afterDir="false" />
+    <list default="true" id="ffc0f948-b3dc-4728-afcb-36524bccfd12" name="Changes" comment="Added stats,&#10;screening cleanup,&#10;Information pages,&#10;Employees informations,&#10;Footer">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/ReviewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/dto/movie/CreateReviewRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/dto/movie/ReviewResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/model/cinema/Review.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/repository/ReviewRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/ReviewService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/tools/MailService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/db.migration/V3__adding_review_and_test_data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend-kino/src/app/router.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/app/router.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend-kino/src/features/admin/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/features/admin/api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend-kino/src/features/admin/components/AdminStats.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/features/admin/components/AdminStats.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend-kino/src/features/admin/hooks.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/features/admin/hooks.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend-kino/src/features/auth/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/features/auth/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/do zrobienia" beforeDir="false" afterPath="$PROJECT_DIR$/do zrobienia" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend-kino/src/features/auth/components/LoginForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/features/auth/components/LoginForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend-kino/src/features/auth/components/RegisterForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/features/auth/components/RegisterForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend-kino/src/features/auth/components/registerSchema.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend-kino/src/features/movie/components/MovieHero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/features/movie/components/MovieHero.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-kino/src/features/movie/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/features/movie/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-kino/src/features/movie/hooks.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/features/movie/hooks.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend-kino/src/features/screening/ScreeningCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/features/screening/ScreeningCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend-kino/src/features/user/components/UserMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/features/user/components/UserMenu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend-kino/src/pages/Admin/AdminScreeningPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/pages/Admin/AdminScreeningPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend-kino/src/pages/LoginPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/pages/LoginPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend-kino/src/pages/MainPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/pages/MainPage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend-kino/src/pages/MovieDetailsPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/pages/MovieDetailsPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend-kino/src/pages/RegisterPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/pages/RegisterPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend-kino/src/pages/RepertoirePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/pages/RepertoirePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend-kino/src/pages/ScreeningDetailsPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-kino/src/pages/ScreeningDetailsPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/DemoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/DemoApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/MovieController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/MovieController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/ReservationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/ReservationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/ScreeningController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/ScreeningController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/dto/movie/CreateReservationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/dto/movie/CreateReservationRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/repository/ScreeningRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/repository/ScreeningRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/repository/TicketRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/repository/TicketRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/AuthService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/ReservationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/ReservationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/ScreeningService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/ScreeningService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/ScreeningCleanupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/tools/ScreeningCleanupService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/TmdbService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/TmdbService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/DemoApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/DemoApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/config/RestClientConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/config/RestClientConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/config/TmdbProperties.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/config/TmdbProperties.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/controller/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/controller/AuthController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/controller/HallController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/controller/HallController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/controller/MovieController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/controller/MovieController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/controller/ScreeningController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/controller/ScreeningController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/controller/TicketController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/controller/TicketController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/dto/auth/AuthResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/dto/auth/AuthResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/dto/auth/LoginRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/dto/auth/LoginRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/dto/auth/RegisterRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/dto/auth/RegisterRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/CreateScreeningRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/CreateScreeningRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/MovieDto$MovieDtoBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/MovieDto$MovieDtoBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/MovieDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/MovieDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/ScreeningRes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/ScreeningRes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/Ticketreq.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/Ticketreq.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/TmdbFindResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/TmdbFindResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/TmdbListResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/TmdbListResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/TmdbMovieDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/TmdbMovieDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/TmdbMovieResponse$MovieResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/TmdbMovieResponse$MovieResult.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/TmdbMovieResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/dto/movie/TmdbMovieResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/model/Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/model/Role.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/model/cinema/Hall.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/model/cinema/Hall.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/model/cinema/Movie$MovieBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/model/cinema/Movie$MovieBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/model/cinema/Movie.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/model/cinema/Movie.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/model/cinema/Screening.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/model/cinema/Screening.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/model/cinema/Ticket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/model/cinema/Ticket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/repository/MovieRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/repository/MovieRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/repository/ScreeningRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/repository/ScreeningRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/repository/TicketRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/repository/TicketRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/security/CustomUserDetailsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/security/CustomUserDetailsService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/security/JwtAuthFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/security/JwtAuthFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/security/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/security/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/security/UserPrincipal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/security/UserPrincipal.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/service/AuthService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/service/AuthService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/service/HallService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/service/HallService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/service/JwtService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/service/JwtService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/service/MovieService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/service/MovieService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/service/ScreeningService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/service/ScreeningService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/service/TicketService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/service/TicketService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/service/TmdbService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/service/TmdbService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,8 +82,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Record" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -165,7 +189,23 @@
       <option name="project" value="LOCAL" />
       <updated>1779229630392</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added stats,&#10;screening cleanup,&#10;Information pages,&#10;Employees informations,&#10;Footer">
+      <option name="closed" value="true" />
+      <created>1779729521067</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1779729521067</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added stats,&#10;screening cleanup,&#10;Information pages,&#10;Employees informations,&#10;Footer">
+      <option name="closed" value="true" />
+      <created>1779729527612</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1779729527612</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,6 +224,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added admin panel , creating and editing halls, reservation for client and fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added admin panel , creating and editing halls, reservation for client and fixes" />
+    <MESSAGE value="Added stats,&#10;screening cleanup,&#10;Information pages,&#10;Employees informations,&#10;Footer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added stats,&#10;screening cleanup,&#10;Information pages,&#10;Employees informations,&#10;Footer" />
   </component>
 </project>

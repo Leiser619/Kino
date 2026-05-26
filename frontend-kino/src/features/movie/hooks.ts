@@ -8,6 +8,7 @@ import {
   getFamilyMovies,
   getMovieBySearchKey,
   getMovieById,
+  searchMovieByTitle,
 } from "./api";
 
 export const useGetMovies = (
@@ -97,3 +98,24 @@ export function useGetMovieById(
     enabled: !!id,
   });
 }
+
+
+export const useMovieSearch =
+  (
+    query: string
+  ) => {
+
+    return useQuery({
+      queryKey: [
+        "movie-search",
+        query,
+      ],
+
+      queryFn: () =>
+        searchMovieByTitle(query),
+
+      enabled:
+        query.trim().length > 1,
+    });
+
+  };

@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.service.tools;
 
 import com.example.demo.repository.ScreeningRepository;
 import lombok.RequiredArgsConstructor;

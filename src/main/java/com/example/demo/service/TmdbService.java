@@ -247,4 +247,58 @@ public class TmdbService {
     }
 
 
+    public MovieDto searchMovieByTitle(
+            String query
+    ) {
+
+        TmdbListResponse response =
+                restClient.get()
+
+                        .uri(uriBuilder -> uriBuilder
+
+                                .path("/search/movie")
+
+                                .queryParam(
+                                        "query",
+                                        query
+                                )
+
+                                .queryParam(
+                                        "language",
+                                        "en-US"
+                                )
+
+                                .queryParam(
+                                        "page",
+                                        1
+                                )
+
+                                .build()
+                        )
+
+                        .header(
+                                "Authorization",
+                                "Bearer " + tmdbProperties.getApiKey()
+                        )
+
+                        .retrieve()
+
+                        .body(TmdbListResponse.class);
+
+        assert response != null;
+
+        if (
+                response.getResults()
+                        .isEmpty()
+        ) {
+
+            throw new RuntimeException(
+                    "Movie not found"
+            );
+        }
+
+        return mapToMovieDto(
+                response.getResults().get(0)
+        );
+    }
 }

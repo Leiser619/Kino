@@ -36,11 +36,17 @@ public class MovieController {
 
     @GetMapping("/search/{searchKey}")
     public MovieDto getMovie(
-            @PathVariable String searchKey
+            @PathVariable("searchKey") String searchKey
     ) {
         return tmdbService.getMovieByImdbId(searchKey);
     }
+    @GetMapping("/search/title/{query}")
+    public MovieDto searchMovieByTitle(
+            @PathVariable("query") String query
+    ) {
 
+        return tmdbService.searchMovieByTitle(query);
+    }
     @GetMapping("/tmdb/{id}")
     public MovieDto getMovieByTmdbId(
             @PathVariable("id") Long id

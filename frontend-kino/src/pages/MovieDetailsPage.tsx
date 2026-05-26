@@ -1,8 +1,12 @@
 // src/pages/MovieDetailsPage.tsx
 
-import { useParams, useNavigate }
-from "react-router-dom";
-import UserFooter from "../features/user/components/UserFooter";
+import {
+  useParams,
+  useNavigate,
+} from "react-router-dom";
+
+import UserFooter
+from "../features/user/components/UserFooter";
 
 import UserMenu
 from "../features/user/components/UserMenu";
@@ -20,11 +24,10 @@ import {
   useGetMovieById,
 } from "../features/movie/hooks";
 
-export default function MovieDetailsPage() {
+import MovieReviews
+from "../features/reviews/components/MovieReviews";
 
-  //
-  // ROUTER
-  //
+export default function MovieDetailsPage() {
 
   const {
     imdbId,
@@ -35,10 +38,6 @@ export default function MovieDetailsPage() {
   const navigate =
     useNavigate();
 
-  //
-  // MOVIE
-  //
-
   const {
     data: movie,
     isLoading,
@@ -46,10 +45,6 @@ export default function MovieDetailsPage() {
   } = useGetMovieById(
     imdbId || ""
   );
-
-  //
-  // LOADING
-  //
 
   if (isLoading) {
 
@@ -67,11 +62,8 @@ export default function MovieDetailsPage() {
         Ładowanie filmu...
       </div>
     );
-  }
 
-  //
-  // ERROR
-  //
+  }
 
   if (error || !movie) {
 
@@ -89,11 +81,8 @@ export default function MovieDetailsPage() {
         Nie znaleziono filmu.
       </div>
     );
-  }
 
-  //
-  // BUY TICKET
-  //
+  }
 
   const handleBuyTicket =
     () => {
@@ -101,11 +90,8 @@ export default function MovieDetailsPage() {
       navigate(
         `/repertoir?movie=${movie.tmdbId}`
       );
-    };
 
-  //
-  // RENDER
-  //
+    };
 
   return (
 
@@ -118,7 +104,10 @@ export default function MovieDetailsPage() {
     >
 
       <UserMenu />
+
       <MovieHero movie={movie} />
+
+      {/* MAIN CONTENT */}
 
       <main
         className="
@@ -139,10 +128,7 @@ export default function MovieDetailsPage() {
           <MovieInfo movie={movie} />
 
           <button
-            onClick={
-              handleBuyTicket
-            }
-
+            onClick={handleBuyTicket}
             className="
               rounded-2xl
               bg-red-600
@@ -168,7 +154,29 @@ export default function MovieDetailsPage() {
         />
 
       </main>
+
+      {/* REVIEWS */}
+
+      <section
+        className="
+          mx-auto
+          w-full
+          max-w-7xl
+          px-6
+          pb-24
+        "
+      >
+
+        <MovieReviews
+          tmdbId={
+            movie.tmdbId.toString()
+          }
+        />
+
+      </section>
+
       <UserFooter />
+
     </div>
   );
 }
