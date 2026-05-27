@@ -68,11 +68,33 @@ Confirmation mail<br>
 
 
 ## Setup
-For now only works on localhost but docker and vercel in progress 
+1.Clone repository<br><br>
+2.Create .env file <br>
+{
+POSTGRES_DB=xx<br>
+POSTGRES_USER=xx<br>
+POSTGRES_PASSWORD=xx<br>
+SPRING_DATASOURCE_URL=xx<br>
+SPRING_DATASOURCE_USERNAME=xx<br>
+SPRING_DATASOURCE_PASSWORD=xx<br>
+TMDB_API_KEY=xx<br>
+APP_JWT_SECRET=xx<br>
+APP_JWT_EXPIRATION_MINUTES=xx<br>
+MAIL_USERNAME=xx<br>
+MAIL_PASSWORD=xx<br>
+}<br><br>
+3.Run application<br>
+docker compose up --build<br><br>
 
-Fronend works on http//:localhost:5173<br>
-Backend works on http//:localhost:8080<br>
-DataBase works on postgresql://localhost:5432/Kino
+4.Stop application<br>
+docker compose down
+
+
+Project uses 3 containers:<br>
+
+Fronend works on port 3000<br>
+Backend works on port 8080<br>
+DataBase works on port 5432<br>
 
 
 ## Usage
