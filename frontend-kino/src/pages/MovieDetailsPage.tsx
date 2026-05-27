@@ -17,8 +17,8 @@ from "../features/movie/components/MovieHero";
 import MovieInfo
 from "../features/movie/components/MovieInfo";
 
-import MovieTrailer
-from "../features/movie/components/MovieTrailer";
+// import MovieTrailer
+// from "../features/movie/components/MovieTrailer";
 
 import {
   useGetMovieById,
@@ -146,12 +146,12 @@ export default function MovieDetailsPage() {
         </div>
 
         {/* RIGHT */}
-
+{/* 
         <MovieTrailer
           trailerUrl={
             movie.trailerUrl
           }
-        />
+        /> */}
 
       </main>
 

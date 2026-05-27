@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 import {
   LayoutDashboard,
-  Film,
   Clapperboard,
   Armchair,
   Users,
@@ -12,14 +11,13 @@ import {
   LogOut,
 } from "lucide-react";
 
-// import { useMe } from "../../auth/hooks";
+import { useMe } from "../../auth/hooks";
 
 export default function AdminMenu() {
 
   const navigate = useNavigate();
 
-  // const { data: user } = useMe();
- const user="Dawid"
+  const { data: user } = useMe();
   const items = [
     {
       label: "Dashboard",

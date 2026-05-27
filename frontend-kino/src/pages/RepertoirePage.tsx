@@ -63,14 +63,14 @@ export default function RepertoirePage() {
     setSelectedMovie,
   ] = useState(movieFromUrl);
 
-
-  const uniqueHalls =
-    [...new Set(
-      screenings?.map(
-        (s: Screening) =>
-          s.hall.name
-      )
-    )];
+const uniqueHalls = [
+  ...new Set(
+    screenings?.map(
+      (s: Screening) =>
+        s.hall.name
+    )
+  ),
+] as string[];
 
 
 
