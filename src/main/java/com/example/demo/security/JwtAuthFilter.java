@@ -15,6 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
@@ -28,7 +29,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain
-    ) throws ServletException, java.io.IOException {
+    ) throws ServletException, IOException {
+
+        String path = request.getRequestURI();
+
+        if (path.startsWith("/api/auth")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         String token = null;
 
@@ -36,6 +44,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             for (Cookie cookie : request.getCookies()) {
                 if ("jwt".equals(cookie.getName())) {
                     token = cookie.getValue();
+                    break;
                 }
             }
         }
@@ -51,16 +60,25 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             String email = jwtService.extractEmail(claims);
 
             if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
                 var userDetails = userDetailsService.loadUserByUsername(email);
 
                 var authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities()
+                        userDetails,
+                        null,
+                        userDetails.getAuthorities()
                 );
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                authToken.setDetails(
+                        new WebAuthenticationDetailsSource().buildDetails(request)
+                );
+
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
 
-        } catch (JwtException | IllegalArgumentException ex) {}
+        } catch (JwtException | IllegalArgumentException ex) {
+        }
+
         filterChain.doFilter(request, response);
     }
 }

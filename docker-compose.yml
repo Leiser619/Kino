@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+
+  db:
+    image: postgres:16
+    container_name: kino-db
+    environment:
+      POSTGRES_DB: Kino
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    env_file:
+        - .env
+    build: .
+    container_name: kino-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: on-failure
+
+  frontend:
+    build: ./frontend-kino
+    container_name: kino-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
