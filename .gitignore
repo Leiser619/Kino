@@ -1,0 +1,66 @@
+# =========================
+# Maven / Spring Boot
+# =========================
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# =========================
+# Application secrets
+# =========================
+.env
+application-local.properties
+
+# jeśli NIE chcesz wrzucać application.properties:
+# src/main/resources/application.properties
+
+# =========================
+# IntelliJ IDEA
+# =========================
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# =========================
+# VS Code
+# =========================
+.vscode/
+!.vscode/extensions.json
+
+# =========================
+# STS / Eclipse
+# =========================
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+
+# =========================
+# NetBeans
+# =========================
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# =========================
+# Node / React / Vite
+# =========================
+node_modules/
+dist/
+dist-ssr/
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
