@@ -1,8 +1,8 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: "http://localhost:8080/api",
-    withCredentials: true
+  baseURL: import.meta.env.VITE_API_URL,
+  withCredentials: true
 });
 
 api.interceptors.response.use(
@@ -19,6 +19,7 @@ api.interceptors.response.use(
       ) {
         return Promise.reject(error);
       }
+
       window.location.href = "/";
     }
 
