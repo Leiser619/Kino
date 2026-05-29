@@ -64,7 +64,8 @@ public class SecurityConfig {
 
         config.setAllowedOrigins(List.of(
                 "http://localhost:5173",
-                "http://localhost:3000"
+                "http://localhost:3000",
+                "https://kino-1-tx6b.onrender.com/"
         ));
 
         config.setAllowedMethods(List.of(
