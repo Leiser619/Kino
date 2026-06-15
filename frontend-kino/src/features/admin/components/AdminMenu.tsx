@@ -1,6 +1,6 @@
 // src/features/admin/components/AdminMenu.tsx
 
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import {
   LayoutDashboard,
@@ -13,7 +13,19 @@ import {
 
 import { useMe } from "../../auth/hooks";
 
+import {
+  useLogout,
+} from "../../auth/hooks";
+import { useState } from "react";
+
 export default function AdminMenu() {
+
+  const logoutMutation =
+    useLogout();
+
+  const handleLogout =
+    () => {
+      logoutMutation.mutate();}
 
   const navigate = useNavigate();
 
@@ -45,8 +57,15 @@ export default function AdminMenu() {
       path: "/admin/settings",
     },
   ];
+   if (!user || user.role !== "ADMIN") {
+  return <Navigate to="/" replace />;
+}
+
 
   return (
+
+
+
     <aside
       className="
         fixed
@@ -65,7 +84,7 @@ export default function AdminMenu() {
 
       <div
         className="
-          flex
+          flex  
           items-center
           gap-3
           border-b
@@ -191,6 +210,8 @@ export default function AdminMenu() {
         </div>
 
         <button
+          onClick={handleLogout}
+
           className="
             flex
             w-full

@@ -31,17 +31,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
-        String path = request.getRequestURI();
-
-        if (path.startsWith("/api/auth")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-
         String token = null;
 
-        if (request.getCookies() != null) {
-            for (Cookie cookie : request.getCookies()) {
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+
+
                 if ("jwt".equals(cookie.getName())) {
                     token = cookie.getValue();
                     break;
@@ -49,34 +46,45 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             }
         }
 
-        if (token == null) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+        if (token != null &&
+                SecurityContextHolder.getContext().getAuthentication() == null) {
 
-        try {
-            var jws = jwtService.parseAndValidate(token);
-            Claims claims = jws.getBody();
-            String email = jwtService.extractEmail(claims);
+            try {
 
-            if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                var jws = jwtService.parseAndValidate(token);
 
-                var userDetails = userDetailsService.loadUserByUsername(email);
+                Claims claims = jws.getBody();
 
-                var authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails,
-                        null,
-                        userDetails.getAuthorities()
+                String email = jwtService.extractEmail(claims);
+
+                if (email != null) {
+
+                    UserPrincipal userPrincipal =
+                            (UserPrincipal) userDetailsService.loadUserByUsername(email);
+
+                    UsernamePasswordAuthenticationToken authentication =
+                            new UsernamePasswordAuthenticationToken(
+                                    userPrincipal,
+                                    null,
+                                    userPrincipal.getAuthorities()
+                            );
+
+                    authentication.setDetails(
+                            new WebAuthenticationDetailsSource()
+                                    .buildDetails(request)
+                    );
+
+                    SecurityContextHolder.getContext()
+                            .setAuthentication(authentication);
+
+                }
+
+            } catch (JwtException | IllegalArgumentException e) {
+
+                System.out.println(
+                        "JWT ERROR: " + e.getMessage()
                 );
-
-                authToken.setDetails(
-                        new WebAuthenticationDetailsSource().buildDetails(request)
-                );
-
-                SecurityContextHolder.getContext().setAuthentication(authToken);
             }
-
-        } catch (JwtException | IllegalArgumentException ex) {
         }
 
         filterChain.doFilter(request, response);

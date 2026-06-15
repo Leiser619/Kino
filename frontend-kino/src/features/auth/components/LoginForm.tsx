@@ -34,6 +34,7 @@ export default function LoginForm() {
     mutate(data, {
       onSuccess: () => {
         navigate("/");
+          window.location.reload();
       },
     });
   };

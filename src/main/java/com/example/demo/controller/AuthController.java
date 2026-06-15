@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -90,12 +91,12 @@ public class AuthController {
     }
 
 
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/employees")
     public List<User> getEmployees() {
         return authService.getEmployees();
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/employees")
     public User addEmployee(
             @Valid @RequestBody AddEmployeeRequest request
@@ -105,7 +106,7 @@ public class AuthController {
                 request.email()
         );
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/employees/{id}")
     public User removeEmployee(
             @PathVariable("id") Long id
